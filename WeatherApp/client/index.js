@@ -11,9 +11,10 @@ form.addEventListener('submit', async (evt) => {
     let url = `https://api.openweathermap.org/data/2.5/forecast?q=${ingevuldeStad}&appid=${key}`;
     let response = await fetch(url);
     if (response.ok) {
+        tbody.innerHTML = ""
         let weerberichtObject = await response.json();
         weerberichtObject.list.forEach(weerVoor3uur => {
-            console.log(weerVoor3uur)
+
             tbody.innerHTML += `
             <tr>
                 <td>${weerVoor3uur.dt_txt}</td>
