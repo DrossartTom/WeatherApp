@@ -1,4 +1,4 @@
-/* Algemene stijl voor het hele document */
+/* General style for the entire document */
 body {
     font-family: Arial, sans-serif;
     margin: 0;
@@ -7,13 +7,13 @@ body {
     color: #333;
 }
 
-/* Stijl voor de header */
+/* Style for the header */
 h1 {
     text-align: center;
     color: #333;
 }
 
-/* Stijl voor het formulier */
+/* Style for the form */
 form {
     display: flex;
     flex-direction: column;
@@ -49,7 +49,7 @@ form input[type="submit"]:hover {
     background-color: #0056b3;
 }
 
-/* Stijl voor de tabel */
+/* Style for the table */
 table {
     width: 100%;
     max-width: 600px;
@@ -79,7 +79,7 @@ table tbody tr:nth-child(even) {
     background-color: #f9f9f9;
 }
 
-/* Responsieve styling */
+/* Responsive styling */
 @media (max-width: 600px) {
     form {
         width: 100%;
