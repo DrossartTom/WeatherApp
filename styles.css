@@ -1,4 +1,4 @@
-/* === Base Reset === */
+/* Global reset and base styles */
 * {
   box-sizing: border-box;
   margin: 0;
@@ -11,56 +11,39 @@ body {
   color: #333;
   padding: 20px;
   line-height: 1.6;
-  transition: background 0.3s, color 0.3s;
 }
 
-body.dark-mode {
-  background: linear-gradient(to right, #1c1c1c, #2e2e2e);
-  color: #f1f1f1;
-}
-
-/* === Header === */
+/* Heading */
 h1 {
   text-align: center;
   font-size: 2rem;
-  margin-bottom: 30px;
+  margin-bottom: 10px;
   color: #007bff;
 }
 
-body.dark-mode h1 {
-  color: #66b2ff;
+/* Theme toggle container */
+.theme-toggle-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 30px;
 }
 
-/* === Toggle Button === */
+/* Toggle button */
 #themeToggle {
-  position: fixed;
-  top: 20px;
-  right: 20px;
-  padding: 8px 16px;
-  background-color: #007bff;
-  color: white;
+  background-color: transparent;
   border: none;
-  border-radius: 8px;
+  font-size: 1.8rem;
   cursor: pointer;
-  font-size: 0.9rem;
-  z-index: 1000;
-  transition: background-color 0.3s;
+  padding: 5px 15px;
+  transition: transform 0.2s ease;
+  user-select: none;
 }
 
 #themeToggle:hover {
-  background-color: #0056b3;
+  transform: scale(1.2);
 }
 
-body.dark-mode #themeToggle {
-  background-color: #444;
-  color: #eee;
-}
-
-body.dark-mode #themeToggle:hover {
-  background-color: #666;
-}
-
-/* === Form === */
+/* Form styling */
 form {
   display: flex;
   flex-direction: column;
@@ -72,10 +55,6 @@ form {
 form label {
   font-size: 1.1rem;
   color: #555;
-}
-
-body.dark-mode form label {
-  color: #ccc;
 }
 
 form input[type="text"] {
@@ -93,12 +72,6 @@ form input[type="text"]:focus {
   outline: none;
 }
 
-body.dark-mode form input[type="text"] {
-  background-color: #444;
-  color: #fff;
-  border-color: #666;
-}
-
 form input[type="submit"] {
   padding: 10px 24px;
   background-color: #007bff;
@@ -114,18 +87,9 @@ form input[type="submit"]:hover {
   background-color: #0056b3;
 }
 
-body.dark-mode form input[type="submit"] {
-  background-color: #666;
-  color: #eee;
-}
-
-body.dark-mode form input[type="submit"]:hover {
-  background-color: #888;
-}
-
-/* === Table === */
+/* Table styling */
 .content-wrapper {
-  max-width: 900px;
+  max-width: 800px;
   margin: 0 auto;
 }
 
@@ -135,23 +99,13 @@ table {
   background-color: white;
   border-radius: 12px;
   overflow: hidden;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
   margin-bottom: 20px;
-  transition: background-color 0.3s;
-}
-
-body.dark-mode table {
-  background-color: #2b2b2b;
-  box-shadow: 0 4px 10px rgba(255, 255, 255, 0.05);
 }
 
 thead {
   background-color: #007bff;
   color: white;
-}
-
-body.dark-mode thead {
-  background-color: #555;
 }
 
 th, td {
@@ -164,49 +118,26 @@ tbody tr:nth-child(even) {
   background-color: #f9f9f9;
 }
 
-body.dark-mode tbody tr:nth-child(even) {
-  background-color: #3b3b3b;
-}
-
 tbody tr:hover {
   background-color: #e6f2ff;
 }
 
-body.dark-mode tbody tr:hover {
-  background-color: #444;
-}
-
-/* Weather + Icon */
-td:nth-child(3) {
-  font-size: 1rem;
-}
-
-/* Allergy Info */
+/* Allergy text */
 td:nth-child(4) {
   font-style: italic;
   color: #00695c;
-  font-size: 1rem;
 }
 
-body.dark-mode td:nth-child(4) {
-  color: #90ee90;
-}
-
-/* === Map Styling === */
+/* Map */
 .map-container {
   width: 100%;
   height: 400px;
   border-radius: 12px;
   overflow: hidden;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  margin-top: 30px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
 }
 
-body.dark-mode .map-container {
-  box-shadow: 0 4px 10px rgba(255, 255, 255, 0.05);
-}
-
-/* === Mobile Responsive === */
+/* Mobile responsiveness */
 @media (max-width: 600px) {
   h1 {
     font-size: 1.5rem;
@@ -227,36 +158,60 @@ body.dark-mode .map-container {
     max-width: 150px;
     word-wrap: break-word;
   }
-
-  #themeToggle {
-    top: 10px;
-    right: 10px;
-    padding: 6px 12px;
-    font-size: 0.85rem;
-  }
 }
 
-#themeToggle {
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  background-color: transparent;
-  border: none;
-  font-size: 1.5rem;
-  cursor: pointer;
-  z-index: 999;
-  transition: transform 0.2s ease;
+/* Dark mode styles */
+body.dark-mode {
+  background: #121212;
+  color: #ddd;
 }
 
-#themeToggle:hover {
-  transform: scale(1.2);
+body.dark-mode h1 {
+  color: #90caf9;
 }
 
-/* Optional: adjust for very small screens */
-@media (max-width: 400px) {
-  #themeToggle {
-    font-size: 1.2rem;
-    top: 15px;
-    right: 15px;
-  }
+body.dark-mode form input[type="text"] {
+  background-color: #222;
+  border-color: #555;
+  color: #ddd;
+}
+
+body.dark-mode form input[type="text"]:focus {
+  border-color: #90caf9;
+}
+
+body.dark-mode form input[type="submit"] {
+  background-color: #90caf9;
+  color: #121212;
+}
+
+body.dark-mode form input[type="submit"]:hover {
+  background-color: #5d99c6;
+}
+
+body.dark-mode table {
+  background-color: #1e1e1e;
+  color: #ddd;
+  box-shadow: 0 4px 10px rgba(255,255,255,0.05);
+}
+
+body.dark-mode thead {
+  background-color: #90caf9;
+  color: #121212;
+}
+
+body.dark-mode tbody tr:nth-child(even) {
+  background-color: #2a2a2a;
+}
+
+body.dark-mode tbody tr:hover {
+  background-color: #394b61;
+}
+
+body.dark-mode td:nth-child(4) {
+  color: #a5d6a7;
+}
+
+body.dark-mode .map-container {
+  box-shadow: 0 4px 10px rgba(255,255,255,0.1);
 }

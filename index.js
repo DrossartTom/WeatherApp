@@ -4,7 +4,28 @@ const cityInput = document.getElementById("City");
 const tbody = document.querySelector("tbody");
 const mapFrame = document.getElementById("mapFrame");
 
-// Handle form submission
+window.addEventListener("DOMContentLoaded", () => {
+  // Create toggle button and append under h1
+  const toggleBtn = document.createElement("button");
+  toggleBtn.id = "themeToggle";
+  toggleBtn.textContent = "🌙";
+  const container = document.querySelector(".theme-toggle-container");
+  container.appendChild(toggleBtn);
+
+  // Load saved theme from localStorage
+  if (localStorage.getItem("theme") === "dark") {
+    document.body.classList.add("dark-mode");
+    toggleBtn.textContent = "☀️";
+  }
+
+  toggleBtn.addEventListener("click", () => {
+    document.body.classList.toggle("dark-mode");
+    const isDark = document.body.classList.contains("dark-mode");
+    toggleBtn.textContent = isDark ? "☀️" : "🌙";
+    localStorage.setItem("theme", isDark ? "dark" : "light");
+  });
+});
+
 form.addEventListener("submit", async (evt) => {
   evt.preventDefault();
 
@@ -21,7 +42,7 @@ form.addEventListener("submit", async (evt) => {
     const weatherData = await response.json();
     tbody.innerHTML = "";
 
-    // Set Google Maps location
+    // Set Google Map iframe
     const { lat, lon } = weatherData.city.coord;
     const embedUrl = `https://www.google.com/maps?q=${lat},${lon}&z=10&output=embed`;
     mapFrame.src = embedUrl;
@@ -42,18 +63,15 @@ form.addEventListener("submit", async (evt) => {
     });
 
     function mostCommon(arr) {
-      return arr
-        .sort(
-          (a, b) =>
-            arr.filter((v) => v === a).length - arr.filter((v) => v === b).length
-        )
-        .pop();
+      return arr.sort((a,b) =>
+            arr.filter(v => v===a).length
+          - arr.filter(v => v===b).length
+      ).pop();
     }
 
     for (const date in dailyData) {
       const tempsKelvin = dailyData[date].temps;
-      const avgTempC =
-        tempsKelvin.reduce((a, b) => a + b, 0) / tempsKelvin.length - 273.15;
+      const avgTempC = tempsKelvin.reduce((a,b) => a + b, 0) / tempsKelvin.length - 273.15;
 
       const description = mostCommon(dailyData[date].descriptions);
 
@@ -66,15 +84,17 @@ form.addEventListener("submit", async (evt) => {
       else if (description.includes("storm") || description.includes("thunder")) icon = "⛈️";
       else if (description.includes("mist") || description.includes("fog")) icon = "🌫️";
 
-      // Allergy estimation
-      let allergyText = "Moderate risk: Dust, Mold";
+      // Allergy estimation with clear text
+      let allergyText = "Moderate risk";
+
       if (description.includes("rain") || description.includes("snow")) {
         allergyText = "Low risk (rain/snow)";
       } else if (description.includes("clear") && avgTempC >= 15) {
         allergyText = "High risk: Pollen, Grass";
+      } else {
+        allergyText = "Moderate risk: Dust, Mold";
       }
 
-      // Append row
       tbody.innerHTML += `
         <tr>
           <td>${date}</td>
@@ -87,26 +107,4 @@ form.addEventListener("submit", async (evt) => {
   } else {
     alert("City not found. Please try again.");
   }
-});
-
-// =====================
-// DARK/LIGHT MODE TOGGLE
-// =====================
-
-const toggleBtn = document.createElement("button");
-toggleBtn.id = "themeToggle";
-toggleBtn.textContent = "🌙";
-document.body.appendChild(toggleBtn);
-
-// Load saved theme
-if (localStorage.getItem("theme") === "dark") {
-  document.body.classList.add("dark-mode");
-  toggleBtn.textContent = "☀️";
-}
-
-toggleBtn.addEventListener("click", () => {
-  document.body.classList.toggle("dark-mode");
-  const isDark = document.body.classList.contains("dark-mode");
-  toggleBtn.textContent = isDark ? "☀️" : "🌙";
-  localStorage.setItem("theme", isDark ? "dark" : "light");
 });
