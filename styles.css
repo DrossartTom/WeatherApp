@@ -116,7 +116,7 @@ iframe {
     }
 
     /* Allergies column tweaks for better mobile display */
-    table td:nth-child(5) {
+    table td:nth-child(4) {
         white-space: normal;
         /* allow wrapping */
         max-width: 120px;

@@ -33,13 +33,11 @@ form.addEventListener("submit", async (evt) => {
       if (!dailyData[date]) {
         dailyData[date] = {
           temps: [],
-          descriptions: [],
-          windSpeeds: []
+          descriptions: []
         };
       }
       dailyData[date].temps.push(entry.main.temp);
       dailyData[date].descriptions.push(entry.weather[0].description.toLowerCase());
-      dailyData[date].windSpeeds.push(entry.wind.speed);
     });
 
     function mostCommon(arr) {
@@ -54,7 +52,6 @@ form.addEventListener("submit", async (evt) => {
       const avgTempC = tempsKelvin.reduce((a,b) => a + b, 0) / tempsKelvin.length - 273.15;
 
       const description = mostCommon(dailyData[date].descriptions);
-      const avgWindSpeed = dailyData[date].windSpeeds.reduce((a,b) => a + b, 0) / dailyData[date].windSpeeds.length;
 
       // Weather icon
       let icon = "❓";
@@ -72,7 +69,7 @@ form.addEventListener("submit", async (evt) => {
         allergyText = "Low risk (rain/snow)";
       } else if (description.includes("clear") && avgTempC >= 15) {
         allergyText = "High risk: Pollen, Grass";
-      } else if (avgWindSpeed > 5) {
+      } else {
         allergyText = "Moderate risk: Dust, Mold";
       }
 
@@ -81,7 +78,6 @@ form.addEventListener("submit", async (evt) => {
           <td>${date}</td>
           <td>${avgTempC.toFixed(1)}</td>
           <td>${icon} ${description}</td>
-          <td>${avgWindSpeed.toFixed(1)}</td>
           <td>${allergyText}</td>
         </tr>
       `;
