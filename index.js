@@ -80,9 +80,8 @@ form.addEventListener("submit", async (evt) => {
         <tr>
           <td>${date}</td>
           <td>${avgTempC.toFixed(1)}</td>
-          <td>${description}</td>
+          <td>${icon} ${description}</td>
           <td>${avgWindSpeed.toFixed(1)}</td>
-          <td class="icon">${icon}</td>
           <td>${allergyText}</td>
         </tr>
       `;
