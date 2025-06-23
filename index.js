@@ -20,12 +20,12 @@ form.addEventListener("submit", async (evt) => {
     const weatherData = await response.json();
     tbody.innerHTML = "";
 
-    // Toon Google Maps via iframe embed
+    // Set Google Map iframe
     const { lat, lon } = weatherData.city.coord;
     const embedUrl = `https://www.google.com/maps?q=${lat},${lon}&z=10&output=embed`;
     mapFrame.src = embedUrl;
 
-    // Groepeer per dag (yyyy-mm-dd)
+    // Group data by day
     const dailyData = {};
 
     weatherData.list.forEach((entry) => {
@@ -34,13 +34,14 @@ form.addEventListener("submit", async (evt) => {
         dailyData[date] = {
           temps: [],
           descriptions: [],
+          windSpeeds: []
         };
       }
       dailyData[date].temps.push(entry.main.temp);
       dailyData[date].descriptions.push(entry.weather[0].description.toLowerCase());
+      dailyData[date].windSpeeds.push(entry.wind.speed);
     });
 
-    // Functie om meest voorkomende beschrijving te vinden
     function mostCommon(arr) {
       return arr.sort((a,b) =>
             arr.filter(v => v===a).length
@@ -48,16 +49,14 @@ form.addEventListener("submit", async (evt) => {
       ).pop();
     }
 
-    // Toon per dag één rij
     for (const date in dailyData) {
       const tempsKelvin = dailyData[date].temps;
-      // Bereken gemiddelde temperatuur °C
       const avgTempC = tempsKelvin.reduce((a,b) => a + b, 0) / tempsKelvin.length - 273.15;
 
-      // Meest voorkomende beschrijving
       const description = mostCommon(dailyData[date].descriptions);
+      const avgWindSpeed = dailyData[date].windSpeeds.reduce((a,b) => a + b, 0) / dailyData[date].windSpeeds.length;
 
-      // Kies icoon op basis van beschrijving
+      // Weather icon
       let icon = "❓";
       if (description.includes("rain")) icon = "🌧️";
       else if (description.includes("clear")) icon = "☀️";
@@ -66,12 +65,25 @@ form.addEventListener("submit", async (evt) => {
       else if (description.includes("storm") || description.includes("thunder")) icon = "⛈️";
       else if (description.includes("mist") || description.includes("fog")) icon = "🌫️";
 
+      // Allergy estimation with clear text
+      let allergyText = "Moderate risk";
+
+      if (description.includes("rain") || description.includes("snow")) {
+        allergyText = "Low risk (rain/snow)";
+      } else if (description.includes("clear") && avgTempC >= 15) {
+        allergyText = "High risk: Pollen, Grass";
+      } else if (avgWindSpeed > 5) {
+        allergyText = "Moderate risk: Dust, Mold";
+      }
+
       tbody.innerHTML += `
         <tr>
           <td>${date}</td>
           <td>${avgTempC.toFixed(1)}</td>
           <td>${description}</td>
-          <td style="font-size: 1.5rem;">${icon}</td>
+          <td>${avgWindSpeed.toFixed(1)}</td>
+          <td class="icon">${icon}</td>
+          <td>${allergyText}</td>
         </tr>
       `;
     }
