@@ -235,3 +235,28 @@ body.dark-mode .map-container {
     font-size: 0.85rem;
   }
 }
+
+#themeToggle {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background-color: transparent;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  z-index: 999;
+  transition: transform 0.2s ease;
+}
+
+#themeToggle:hover {
+  transform: scale(1.2);
+}
+
+/* Optional: adjust for very small screens */
+@media (max-width: 400px) {
+  #themeToggle {
+    font-size: 1.2rem;
+    top: 15px;
+    right: 15px;
+  }
+}
