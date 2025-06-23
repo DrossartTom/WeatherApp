@@ -1,4 +1,3 @@
-/* Algemene stijl */
 body {
     font-family: Arial, sans-serif;
     margin: 0;
@@ -7,13 +6,11 @@ body {
     color: #333;
 }
 
-/* Header */
 h1 {
     text-align: center;
     color: #333;
 }
 
-/* Formulier */
 form {
     display: flex;
     flex-direction: column;
@@ -38,7 +35,7 @@ form input[type="text"] {
 form input[type="submit"] {
     padding: 10px 20px;
     background-color: #007bff;
-    color: #fff;
+    color: white;
     border: none;
     border-radius: 4px;
     cursor: pointer;
@@ -49,11 +46,16 @@ form input[type="submit"]:hover {
     background-color: #0056b3;
 }
 
-/* Tabel */
+.content-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+}
+
 table {
     width: 100%;
     max-width: 600px;
-    margin: 0 auto;
     border-collapse: collapse;
     background-color: #fff;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -61,47 +63,44 @@ table {
 
 table thead {
     background-color: #007bff;
-    color: #fff;
+    color: white;
 }
 
 table th,
 table td {
     padding: 12px;
-    text-align: left;
     border: 1px solid #ddd;
-}
-
-table th {
-    font-weight: bold;
+    text-align: left;
 }
 
 table tbody tr:nth-child(even) {
     background-color: #f9f9f9;
 }
 
-/* Visuele kolom centreren */
-table td:last-child {
-    text-align: center;
-    font-size: 1.5em;
+.map-container {
+    flex: 1 1 400px;
+    min-width: 300px;
+    max-width: 600px;
 }
 
-/* Responsief */
+iframe {
+    width: 100%;
+    height: 500px;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Responsive */
+
 @media (max-width: 600px) {
-    form {
-        width: 100%;
-    }
 
     form input[type="text"],
     form input[type="submit"] {
         width: 90%;
     }
 
-    table {
-        width: 100%;
-    }
-
-    table th,
-    table td {
-        padding: 8px;
+    .content-wrapper {
+        flex-direction: column;
+        align-items: center;
     }
 }
