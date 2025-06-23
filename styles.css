@@ -1,4 +1,4 @@
-/* (Same as before) */
+/* General style for the entire document */
 body {
     font-family: Arial, sans-serif;
     margin: 0;
@@ -7,11 +7,13 @@ body {
     color: #333;
 }
 
+/* Style for the header */
 h1 {
     text-align: center;
     color: #333;
 }
 
+/* Style for the form */
 form {
     display: flex;
     flex-direction: column;
@@ -99,12 +101,26 @@ iframe {
     border: 0;
 }
 
-/* Responsive */
-
+/* Responsive styling */
 @media (max-width: 600px) {
 
     form input[type="text"],
     form input[type="submit"] {
         width: 90%;
+    }
+
+    table td,
+    table th {
+        font-size: 0.9rem;
+        /* Slightly smaller font on mobile */
+    }
+
+    /* Allergies column tweaks for better mobile display */
+    table td:nth-child(5) {
+        white-space: normal;
+        /* allow wrapping */
+        max-width: 120px;
+        /* limit max width */
+        word-wrap: break-word;
     }
 }
